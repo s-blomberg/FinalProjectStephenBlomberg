@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import InventoryItem
@@ -22,6 +23,11 @@ class InventoryCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'inventory/add_inventory_item.html'
     permission_required = 'inventory.add_inventoryitem'
     success_url = reverse_lazy('inventory_list')
+
+    def form_invalid(self, form):
+        messages.error(self.request, "There was an error adding the inventory item.")
+        print(form.errors)  # Log form errors for debugging
+        return super().form_invalid(form)
 
 # Edit inventory items (Admins only)
 class InventoryUpdateView(PermissionRequiredMixin, UpdateView):
