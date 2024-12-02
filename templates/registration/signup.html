@@ -5,7 +5,7 @@
 {% block content %}
 <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
   <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px;">
-    <h2 class="text-center mb-4">Sign Up</h2>
+    <h2 class="text-center mb-4">Create Your Account</h2>
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
@@ -13,6 +13,9 @@
         <button type="submit" class="btn btn-success">Sign Up</button>
       </div>
     </form>
+    <p class="text-center mt-3">
+      Already have an account? <a href="{% url 'login' %}">Log In</a>
+    </p>
   </div>
 </div>
 {% endblock %}

@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'inventory.apps.InventoryConfig',
+    'weather.apps.WeatherConfig',
 ]
 
 MIDDLEWARE = [
@@ -116,3 +117,4 @@ LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+ACCUWEATHER_API_KEY = 'your_api_key_here'

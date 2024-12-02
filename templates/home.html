@@ -9,6 +9,7 @@
     <p class="col-md-8 fs-4">Manage your inventory effortlessly.</p>
     {% if user.is_authenticated %}
     <a href="{% url 'inventory_list' %}" class="btn btn-primary btn-lg me-2">Go to Inventory</a>
+    <a href="{% url 'weather_view' %}" class="btn btn-info btn-lg me-2">Weather</a>
     <form action="{% url 'logout' %}" method="post" style="display: inline;">
       {% csrf_token %}
       <button type="submit" class="btn btn-outline-danger btn-lg">Logout</button>
