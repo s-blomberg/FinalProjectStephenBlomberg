@@ -2,7 +2,7 @@ from django.db import models
 
 class InventoryItem(models.Model):
     product_name = models.CharField(max_length=255, verbose_name="Product Name")
-    serial_id = models.CharField(max_length=100, unique=True, verbose_name="Serial ID")
+    serial_id = models.CharField(max_length=100, unique=True, blank=True, null=True, verbose_name="Serial ID")
     cost = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Cost")
     quantity = models.PositiveIntegerField(verbose_name="Quantity")
     date_acquired = models.DateField(verbose_name="Date Acquired")

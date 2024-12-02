@@ -4,8 +4,11 @@ from .models import InventoryItem
 class InventoryItemForm(forms.ModelForm):
     class Meta:
         model = InventoryItem
-        fields = ['product_name', 'serial_id', 'cost', 'quantity', 'date_acquired', 'date_maintenance', 'notes']
-
+        fields = '__all__'
+        widgets = {
+            'date_acquired': forms.DateInput(attrs={'type': 'date'}),
+            'date_maintenance': forms.DateInput(attrs={'type': 'date'}),
+        }
     def clean_serial_id(self):
         serial_id = self.cleaned_data.get('serial_id')
         if InventoryItem.objects.filter(serial_id=serial_id).exists():
