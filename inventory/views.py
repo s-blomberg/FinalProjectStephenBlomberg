@@ -21,6 +21,7 @@ class InventoryCreateView(PermissionRequiredMixin, CreateView):
     form_class = InventoryItemForm
     template_name = 'inventory/add_inventory_item.html'
     permission_required = 'inventory.add_inventoryitem'
+    success_url = reverse_lazy('inventory_list')
 
 # Edit inventory items (Admins only)
 class InventoryUpdateView(PermissionRequiredMixin, UpdateView):
