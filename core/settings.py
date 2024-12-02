@@ -120,7 +120,7 @@ LOGOUT_REDIRECT_URL = "home"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-ACCUWEATHER_API_KEY = 'your_api_key_here'
+ACCUWEATHER_API_KEY = 'A1tqxYZ7PJM4Eyo8oaH1hTGH6rtP04dc'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
