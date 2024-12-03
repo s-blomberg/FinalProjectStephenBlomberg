@@ -7,7 +7,7 @@
 
 ## Description
 
-This project will be using the Django framework to create a web app for a small business to track inventory and maintenance logs of items and equipment, as well as a weather API for the outdoor venue.
+This project will be using the Django framework to create a web app for a small business to track inventory and maintenance logs of items and equipment, as well as a weather API as they frequently operate outdoors.
 
 ## Getting Started
 
@@ -21,11 +21,11 @@ pip install -r requirements.txt
 
 ### Executing program
 
-To generate our data table migrations, run in your terminal:
+To create the migration files for the database, run in your terminal:
 ```
 python manage.py makemigrations
 ```
-To apply the migration, run in your terminal:
+To apply the migrations to the database, run in your terminal:
 ```
 python manage.py migrate
 ```
@@ -42,7 +42,7 @@ After running the server, visit http://127.0.0.1:8000/ in your browser to launch
 
 ### Output
 
-This web-app allows user creation and authentication, inventory management, maintenance logging. As this small business operates primarily outdoors, I've included a weather API for the venue they operate at. 
+This web-app allows user creation and authentication, inventory management, and maintenance logging. As this small business operates primarily outdoors, I've included a weather API to display weather conditions. 
 
 ## Authors
 
