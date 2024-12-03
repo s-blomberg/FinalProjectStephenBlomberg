@@ -1,67 +1,100 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Weather{% endblock %}
 
 {% block content %}
-<h2 class="text-center">Weather Forecast for {{ city }}</h2>
+<h2 class="text-center">Weather</h2>
 
 {% if error_message %}
 <div class="alert alert-danger">
     {{ error_message }}
 </div>
 {% else %}
+
+<!-- Search Form -->
+<form method="get" class="d-flex justify-content-center mt-4">
+    <input type="text" name="city" class="form-control w-50" placeholder="Enter your city" value="{{ city|default_if_none:'' }}">
+    <button type="submit" class="btn btn-primary ms-2">Get Weather</button>
+</form>
+
+<!-- Daily Weather Details -->
 <div class="card mx-auto my-4" style="max-width: 800px;">
     <div class="card-body text-center">
         <h5 class="card-title">Daily Weather Details</h5>
-        <p><strong>Temperature:</strong> {{ weather_data.DailyForecasts.0.Temperature.Minimum.Value }}°F - {{ weather_data.DailyForecasts.0.Temperature.Maximum.Value }}°F</p>
-        <p><strong>Condition:</strong> {{ weather_data.DailyForecasts.0.Day.IconPhrase }}</p>
+        {% if weather_data and weather_data.DailyForecasts %}
+            <p><strong>Temperature:</strong> {{ weather_data.DailyForecasts.0.Temperature.Minimum.Value }}°F - {{ weather_data.DailyForecasts.0.Temperature.Maximum.Value }}°F</p>
+            <p><strong>Condition:</strong> {{ weather_data.DailyForecasts.0.Day.IconPhrase }}</p>
+        {% else %}
+            <p>No daily forecast data available.</p>
+        {% endif %}
     </div>
 </div>
 
-<div class="my-4">
-    <h5>Hourly Forecast</h5>
-    <div class="row row-cols-2 row-cols-md-4 g-3">
-        {% for hour in hourly_forecast %}
-        <div class="col">
-            <div class="card text-center shadow-sm">
-                <div class="card-body">
-                    <p><strong>{{ hour.DateTime|date:"h:i A" }}</strong></p>
-                    <p><strong>Temp:</strong> {{ hour.Temperature.Value }}°F</p>
-                    <p><strong>Condition:</strong> {{ hour.IconPhrase }}</p>
+<!-- Hourly Forecast -->
+<div class="card mx-auto my-4" style="max-width: 800px;">
+    <div class="card-body">
+        <h5 class="card-title text-center">Hourly Forecast</h5>
+        {% if hourly_forecast %}
+        <div class="row row-cols-2 row-cols-md-4 g-3">
+            {% for hour in hourly_forecast %}
+            <div class="col">
+                <div class="card text-center shadow-sm">
+                    <div class="card-body">
+                        <p><strong>{{ hour.DateTime|date:"h:i A" }}</strong></p>
+                        <p><strong>Temp:</strong> {{ hour.Temperature.Value }}°F</p>
+                        <p><strong>Condition:</strong> {{ hour.IconPhrase }}</p>
+                        <p><strong>Wind:</strong> {{ hour.Wind.Speed.Value }} mph</p>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        {% else %}
+        <p class="text-center">No hourly forecast data available.</p>
+        {% endif %}
     </div>
 </div>
 
-<div class="my-4">
-    <h5>Minute-by-Minute Forecast</h5>
-    {% if minute_cast %}
-    <ul class="list-group">
-        {% for minute in minute_cast %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <span>{{ minute.DateTime|date:"h:i A" }}</span>
-            <span><strong>Precipitation:</strong> {{ minute.PrecipitationProbability }}%</span>
-            <span><strong>Wind:</strong> {{ minute.Wind.Speed.Value }} mph</span>
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>No minute-by-minute data available.</p>
-    {% endif %}
+<!-- Minute Forecast -->
+<div class="card mx-auto my-4" style="max-width: 800px;">
+    <div class="card-body">
+        <h5 class="card-title text-center">Minute Forecast</h5>
+        {% if minute_cast %}
+        <div class="list-group">
+            {% for minute in minute_cast %}
+            <div class="list-group-item">
+                <p><strong>Time:</strong> {{ minute.DateTime|date:"h:i A" }}</p>
+                <p><strong>Precipitation:</strong> {{ minute.PrecipitationProbability }}%</p>
+                <p><strong>Wind:</strong> {{ minute.Wind.Speed.Value }} mph</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center">No minute forecast data available.</p>
+        {% endif %}
+    </div>
 </div>
 
-<div class="my-4">
-    <h5>Radar Map</h5>
-    <div class="d-flex justify-content-center">
-        <iframe src="{{ radar_map_url }}" width="600" height="400" style="border:0;" allowfullscreen></iframe>
+<!-- Radar Map -->
+<div class="card mx-auto my-4" style="max-width: 800px;">
+    <div class="card-body text-center">
+        <h5 class="card-title">Radar Map</h5>
+        {% if radar_map_url %}
+        <div class="ratio ratio-16x9">
+            <iframe src="{{ radar_map_url }}" allowfullscreen style="border:0;"></iframe>
+        </div>
+        {% else %}
+        <p>No radar map available.</p>
+        {% endif %}
     </div>
 </div>
 {% endif %}
 
-<form method="get" class="d-flex justify-content-center mt-4">
-    <input type="text" name="city" class="form-control w-50" placeholder="Enter a city name" value="{{ city }}">
-    <button type="submit" class="btn btn-primary ms-2">Get Weather</button>
-</form>
+<!-- AccuWeather Banner -->
+<div class="d-flex justify-content-center mt-5">
+    <a href="https://www.accuweather.com/" target="_blank" rel="noopener noreferrer">
+        <img src="{% static 'images/AW_CMYK_Small_R.jpg' %}" alt="AccuWeather Logo" class="img-fluid" style="max-width: 300px;">
+    </a>
+</div>
 {% endblock %}

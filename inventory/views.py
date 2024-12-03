@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import InventoryItem
 from .forms import InventoryItemForm
+from django.db.models import Q
 
 # Updated 'home' view
 def home(request):
@@ -15,6 +16,25 @@ class InventoryListView(ListView):
     model = InventoryItem
     template_name = 'inventory/inventory_list.html'
     context_object_name = 'inventory_items'
+
+    def get_queryset(self):
+        queryset = InventoryItem.objects.all()
+
+        # Handle search
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(
+                Q(product_name__icontains=query) |
+                Q(serial_id__icontains=query) |
+                Q(notes__icontains=query)
+            )
+
+        # Handle sorting
+        sort = self.request.GET.get('sort')
+        if sort:
+            queryset = queryset.order_by(sort)
+
+        return queryset
 
 # Add new inventory items (Admins only)
 class InventoryCreateView(PermissionRequiredMixin, CreateView):

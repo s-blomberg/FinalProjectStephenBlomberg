@@ -5,3 +5,9 @@ register = template.Library()
 @register.filter
 def addclass(field, css):
     return field.as_widget(attrs={"class": css})
+
+@register.filter
+def toggle_sort(current_sort, field_name):
+    if current_sort == field_name:
+        return f"-{field_name}"
+    return field_name

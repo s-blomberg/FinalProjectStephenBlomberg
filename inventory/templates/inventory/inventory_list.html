@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load custom_filters %}
+
 {% block content %}
 <h2 class="my-4 text-center">Inventory Items</h2>
 
@@ -17,13 +19,41 @@
 <table class="table table-striped table-hover table-bordered">
   <thead class="table-dark">
     <tr>
-        <th><a href="?sort=product_name">Product Name</a></th>
-        <th><a href="?sort=serial_id">Serial ID</a></th>
-        <th><a href="?sort=cost">Cost ▲</a> <a href="?sort=-cost">Cost ▼</a></th>
-        <th><a href="?sort=quantity">Quantity ▲</a> <a href="?sort=-quantity">Quantity ▼</a></th>
-        <th>Acquire Date</th>
-        <th>Maintenance Date</th>
-        <th>Notes</th>
+        <th>
+            <a href="?q={{ request.GET.q }}&sort={{ request.GET.sort|toggle_sort:'product_name' }}">
+                Product Name {% if request.GET.sort == 'product_name' %}▲{% elif request.GET.sort == '-product_name' %}▼{% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="?q={{ request.GET.q }}&sort={{ request.GET.sort|toggle_sort:'serial_id' }}">
+                Serial ID {% if request.GET.sort == 'serial_id' %}▲{% elif request.GET.sort == '-serial_id' %}▼{% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="?q={{ request.GET.q }}&sort={{ request.GET.sort|toggle_sort:'cost' }}">
+                Cost {% if request.GET.sort == 'cost' %}▲{% elif request.GET.sort == '-cost' %}▼{% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="?q={{ request.GET.q }}&sort={{ request.GET.sort|toggle_sort:'quantity' }}">
+                Quantity {% if request.GET.sort == 'quantity' %}▲{% elif request.GET.sort == '-quantity' %}▼{% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="?q={{ request.GET.q }}&sort={{ request.GET.sort|toggle_sort:'date_acquired' }}">
+                Acquire Date {% if request.GET.sort == 'date_acquired' %}▲{% elif request.GET.sort == '-date_acquired' %}▼{% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="?q={{ request.GET.q }}&sort={{ request.GET.sort|toggle_sort:'date_maintenance' }}">
+                Maintenance Date {% if request.GET.sort == 'date_maintenance' %}▲{% elif request.GET.sort == '-date_maintenance' %}▼{% endif %}
+            </a>
+        </th>
+        <th>
+            <a href="?q={{ request.GET.q }}&sort={{ request.GET.sort|toggle_sort:'notes' }}">
+                Notes {% if request.GET.sort == 'notes' %}▲{% elif request.GET.sort == '-notes' %}▼{% endif %}
+            </a>
+        </th>
         {% if perms.inventory.change_inventoryitem %}
         <th>Actions</th>
         {% endif %}
@@ -40,7 +70,7 @@
       <td>{{ item.date_maintenance }}</td>
       <td>{{ item.notes }}</td>
       {% if perms.inventory.change_inventoryitem %}
-      <td>
+      <td style="text-align: center; vertical-align: middle;">
         <a href="{% url 'edit_inventory_item' item.id %}" class="btn btn-secondary btn-sm">Edit</a>
       </td>
       {% endif %}

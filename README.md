@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 ### Executing program
 
-To create our data tables for migration, run in your terminal:
+To generate our data table migrations, run in your terminal:
 ```
 python manage.py makemigrations
 ```
@@ -42,7 +42,7 @@ After running the server, visit http://127.0.0.1:8000/ in your browser to launch
 
 ### Output
 
-This web-app allows user creation and authentication, inventory management with details for maintenance logging. As this small business operates primarily outdoors, I've included a weather API for the venue they operate at. 
+This web-app allows user creation and authentication, inventory management, maintenance logging. As this small business operates primarily outdoors, I've included a weather API for the venue they operate at. 
 
 ## Authors
 
@@ -55,4 +55,6 @@ Inspiration, code snippets, etc.
 * [Django](https://docs.djangoproject.com/en/5.0/)
 * [Jinja](https://jinja.palletsprojects.com/en/stable/)
 * [Bootstrap](https://getbootstrap.com/)
-* [ChatGPT](https://chatgpt.com/share/672ceb52-2d48-8002-a176-5bbbc687c8ff)
+* [AccuWeather](https://developer.accuweather.com/)
+* [django-crispy-forms](https://django-crispy-forms.readthedocs.io/en/latest/)
+* [ChatGPT](https://chatgpt.com/share/674e43eb-8b44-8002-a965-168b4ffb2b90)
