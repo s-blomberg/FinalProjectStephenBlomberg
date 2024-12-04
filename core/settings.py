@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'inventory.apps.InventoryConfig',
+    'maintenance_logs.apps.MaintenanceLogsConfig',
     'weather.apps.WeatherConfig',
     'crispy_forms',
     'crispy_bootstrap5',

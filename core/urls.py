@@ -7,6 +7,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('inventory/', include('inventory.urls')),
+    path('maintenance_logs/', include('maintenance_logs.urls')),
     path('weather/', include('weather.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home')
 ]

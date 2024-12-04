@@ -4,16 +4,28 @@
 
 {% block content %}
 <div class="card shadow-sm p-4">
-  <h2 class="text-center mb-4">Add Inventory Item</h2>
+  <h2 class="text-center mb-4">Add Maintenance Log</h2>
   <form method="post" class="row g-3">
     {% csrf_token %}
 
     <div class="col-md-6">
-      <label for="{{ form.product_name.id_for_label }}" class="form-label">Product Name</label>
-      {{ form.product_name|addclass:"form-control" }}
-      {% if form.product_name.errors %}
+      <label for="{{ form.last_maintenance_date.id_for_label }}" class="form-label">Last Maintenance Date</label>
+      {{ form.last_maintenance_date|addclass:"form-control" }}
+      {% if form.last_maintenance_date.errors %}
       <div class="text-danger">
-        {% for error in form.product_name.errors %}
+        {% for error in form.last_maintenance_date.errors %}
+        <small>{{ error }}</small>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="col-md-6">
+      <label for="{{ form.light_bulb_hours.id_for_label }}" class="form-label">Light Bulb Hours</label>
+      {{ form.light_bulb_hours|addclass:"form-control" }}
+      {% if form.light_bulb_hours.errors %}
+      <div class="text-danger">
+        {% for error in form.light_bulb_hours.errors %}
         <small>{{ error }}</small>
         {% endfor %}
       </div>
@@ -33,11 +45,11 @@
     </div>
 
     <div class="col-md-6">
-      <label for="{{ form.cost.id_for_label }}" class="form-label">Cost</label>
-      {{ form.cost|addclass:"form-control" }}
-      {% if form.cost.errors %}
+      <label for="{{ form.product_model.id_for_label }}" class="form-label">Product Model</label>
+      {{ form.product_model|addclass:"form-control" }}
+      {% if form.product_model.errors %}
       <div class="text-danger">
-        {% for error in form.cost.errors %}
+        {% for error in form.product_model.errors %}
         <small>{{ error }}</small>
         {% endfor %}
       </div>
@@ -45,23 +57,11 @@
     </div>
 
     <div class="col-md-6">
-      <label for="{{ form.quantity.id_for_label }}" class="form-label">Quantity</label>
-      {{ form.quantity|addclass:"form-control" }}
-      {% if form.quantity.errors %}
+      <label for="{{ form.ballast_unit.id_for_label }}" class="form-label">Ballast Unit</label>
+      {{ form.ballast_unit|addclass:"form-control" }}
+      {% if form.ballast_unit.errors %}
       <div class="text-danger">
-        {% for error in form.quantity.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-
-    <div class="col-md-6">
-      <label for="{{ form.date_acquired.id_for_label }}" class="form-label">Date Acquired</label>
-      {{ form.date_acquired|addclass:"form-control" }}
-      {% if form.date_acquired.errors %}
-      <div class="text-danger">
-        {% for error in form.date_acquired.errors %}
+        {% for error in form.ballast_unit.errors %}
         <small>{{ error }}</small>
         {% endfor %}
       </div>

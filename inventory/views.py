@@ -2,30 +2,31 @@ from django.urls import reverse_lazy
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from .models import InventoryItem
 from .forms import InventoryItemForm
 from django.db.models import Q
 
-# Updated 'home' view
+# 'Home' view after login
 def home(request):
     return render(request, 'inventory/home.html')
 
-# View-only list for all users
+# View item list
 class InventoryListView(ListView):
     model = InventoryItem
     template_name = 'inventory/inventory_list.html'
     context_object_name = 'inventory_items'
 
     def get_queryset(self):
-        queryset = InventoryItem.objects.all()
+        queryset = InventoryItem.objects.only(
+            'id', 'product_name', 'date_maintenance', 'notes'
+        )
 
         # Handle search
         query = self.request.GET.get('q')
         if query:
             queryset = queryset.filter(
                 Q(product_name__icontains=query) |
-                Q(serial_id__icontains=query) |
                 Q(notes__icontains=query)
             )
 
@@ -35,6 +36,13 @@ class InventoryListView(ListView):
             queryset = queryset.order_by(sort)
 
         return queryset
+
+
+# View item details
+class InventoryDetailView(DetailView):
+    model = InventoryItem
+    template_name = 'inventory/inventory_detail.html'
+    context_object_name = 'item'
 
 # Add new inventory items (Admins only)
 class InventoryCreateView(PermissionRequiredMixin, CreateView):
@@ -59,6 +67,7 @@ class InventoryUpdateView(PermissionRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('inventory_list')
 
+# Delete inventory item
 class InventoryDeleteView(DeleteView):
     model = InventoryItem
     template_name = 'inventory/confirm_delete.html'

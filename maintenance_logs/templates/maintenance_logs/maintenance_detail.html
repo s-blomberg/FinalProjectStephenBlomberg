@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Maintenance Log Details{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm p-4">
+    <h2 class="text-center mb-4">Maintenance Log Details</h2>
+    <ul class="list-group">
+        <li class="list-group-item"><strong>Inventory Item:</strong> 
+            {% if log.inventory_item %}
+            <a href="{% url 'inventory_detail' log.inventory_item.id %}">
+                {{ log.inventory_item.product_name }}
+            </a>
+            {% else %}
+            N/A
+            {% endif %}
+        </li>
+        <li class="list-group-item"><strong>Last Maintenance Date:</strong> {{ log.last_maintenance_date|default:"N/A" }}</li>
+        <li class="list-group-item"><strong>Light Bulb Hours:</strong> {{ log.light_bulb_hours|default:"N/A" }}</li>
+        <li class="list-group-item"><strong>Serial ID:</strong> {{ log.serial_id|default:"N/A" }}</li>
+        <li class="list-group-item"><strong>Product Model:</strong> {{ log.product_model|default:"N/A" }}</li>
+        <li class="list-group-item"><strong>Ballast Unit:</strong> {{ log.ballast_unit|default:"N/A" }}</li>
+        <li class="list-group-item"><strong>Notes:</strong> {{ log.notes|default:"N/A" }}</li>
+    </ul>
+    <div class="text-center mt-4">
+        <a href="{% url 'maintenance_list' %}" class="btn btn-secondary">Back to Maintenance Logs</a>
+    </div>
+</div>
+{% endblock %}
