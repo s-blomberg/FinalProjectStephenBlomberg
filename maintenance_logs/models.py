@@ -6,6 +6,8 @@ class MaintenanceLog(models.Model):
         InventoryItem,
         on_delete=models.CASCADE,
         related_name='maintenance_logs',
+        null=True,  # Allow nullable temporarily
+        blank=True
     )
     last_maintenance_date = models.DateField(null=True, blank=True)
     light_bulb_hours = models.IntegerField(null=True, blank=True)
