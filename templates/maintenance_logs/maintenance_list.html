@@ -4,16 +4,18 @@
 <h2>Maintenance Logs</h2>
 <a href="{% url 'add_maintenance_log' %}" class="btn btn-primary">Add Log</a>
 <table class="table table-striped mt-4">
+
     <thead>
         <tr>
-            <th>Inventory Item</th>
-            <th>Last Maintenance Date</th>
-            <th>Light Bulb Hours</th>
-            <th>Product Model</th>
-            <th>Ballast Unit</th>
+            <th><a href="?sort=inventory_item__product_name">Inventory Item</a></th>
+            <th><a href="?sort=last_maintenance_date">Last Maintenance Date</a></th>
+            <th><a href="?sort=light_bulb_hours">Light Bulb Hours</a></th>
+            <th><a href="?sort=product_model">Product Model</a></th>
+            <th><a href="?sort=ballast_unit">Ballast Unit</a></th>
             <th>Notes</th>
         </tr>
     </thead>
+
     <tbody>
         {% for log in logs %}
         <tr>

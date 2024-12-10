@@ -18,6 +18,7 @@ class InventoryListView(ListView):
     model = InventoryItem
     template_name = 'inventory/inventory_list.html'
     context_object_name = 'inventory_items'
+    paginate_by = 10
 
     def get_queryset(self):
         queryset = InventoryItem.objects.only(
@@ -66,8 +67,6 @@ class InventoryUpdateView(PermissionRequiredMixin, UpdateView):
     success_url = reverse_lazy('inventory_list')
 
     def form_valid(self, form):
-        # Delete old image if a new one is uploaded
-        old_image = self.object.product_image
         if form.cleaned_data['product_image'] and old_image:
             old_image.delete(save=False)
 
@@ -80,6 +79,7 @@ class InventoryDeleteView(DeleteView):
     model = InventoryItem
     template_name = 'inventory/confirm_delete.html'
     success_url = reverse_lazy('inventory_list')
+    success_message = 'Inventory item deleted successfully.'
 
 def delete_image(request, pk):
     item = get_object_or_404(InventoryItem, pk=pk)

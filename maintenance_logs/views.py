@@ -12,6 +12,7 @@ class MaintenanceLogListView(ListView):
     model = MaintenanceLog
     template_name = 'maintenance_logs/maintenance_list.html'
     context_object_name = 'maintenance_logs'
+    paginate_by = 10
 
     def get_queryset(self):
         return MaintenanceLog.objects.select_related('inventory_item').all()
