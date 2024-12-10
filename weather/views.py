@@ -1,4 +1,4 @@
-from .utils import fetch_weather, fetch_hourly_forecast, fetch_minute_cast, get_radar_map_url
+from .utils import fetch_weather, fetch_hourly_forecast
 from django.shortcuts import render
 import requests, logging
 
@@ -8,16 +8,12 @@ def weather_view(request):
     city = request.GET.get("city")
     weather_data = None
     hourly_forecast = None
-    minute_cast = None
-    radar_map_url = None
     error_message = None
 
     if city:
         try:
             weather_data = fetch_weather(city)
             hourly_forecast = fetch_hourly_forecast(city)
-            minute_cast = fetch_minute_cast(city)
-            radar_map_url = get_radar_map_url(weather_data['Headline']['EffectiveLocationKey'])
         except requests.exceptions.RequestException as e:
             error_message = "Error fetching weather data. Please try again later."
             logger.error(f"RequestException occurred: {e}")
@@ -31,8 +27,6 @@ def weather_view(request):
     return render(request, "weather/weather.html", {
         "weather_data": weather_data,
         "hourly_forecast": hourly_forecast,
-        "minute_cast": minute_cast,
-        "radar_map_url": radar_map_url,
         "city": city,
         "error_message": error_message,
     })

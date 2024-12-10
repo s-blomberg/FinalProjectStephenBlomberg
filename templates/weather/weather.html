@@ -6,11 +6,12 @@
 {% block content %}
 <h2 class="text-center">Weather</h2>
 
+<!-- Display Errors -->
 {% if error_message %}
 <div class="alert alert-danger">
     {{ error_message }}
 </div>
-{% else %}
+{% endif %}
 
 <!-- Search Form -->
 <form method="get" class="d-flex justify-content-center mt-4">
@@ -23,7 +24,10 @@
     <div class="card-body text-center">
         <h5 class="card-title">Daily Weather Details</h5>
         {% if weather_data and weather_data.DailyForecasts %}
-            <p><strong>Temperature:</strong> {{ weather_data.DailyForecasts.0.Temperature.Minimum.Value }}°F - {{ weather_data.DailyForecasts.0.Temperature.Maximum.Value }}°F</p>
+            <p><strong>Temperature:</strong>
+                {{ weather_data.DailyForecasts.0.Temperature.Minimum.Value }}°F -
+                {{ weather_data.DailyForecasts.0.Temperature.Maximum.Value }}°F
+            </p>
             <p><strong>Condition:</strong> {{ weather_data.DailyForecasts.0.Day.IconPhrase }}</p>
         {% else %}
             <p>No daily forecast data available.</p>
@@ -51,45 +55,10 @@
             {% endfor %}
         </div>
         {% else %}
-        <p class="text-center">No hourly forecast data available.</p>
+            <p class="text-center">No hourly forecast data available.</p>
         {% endif %}
     </div>
 </div>
-
-<!-- Minute Forecast -->
-<div class="card mx-auto my-4" style="max-width: 800px;">
-    <div class="card-body">
-        <h5 class="card-title text-center">Minute Forecast</h5>
-        {% if minute_cast %}
-        <div class="list-group">
-            {% for minute in minute_cast %}
-            <div class="list-group-item">
-                <p><strong>Time:</strong> {{ minute.DateTime|date:"h:i A" }}</p>
-                <p><strong>Precipitation:</strong> {{ minute.PrecipitationProbability }}%</p>
-                <p><strong>Wind:</strong> {{ minute.Wind.Speed.Value }} mph</p>
-            </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <p class="text-center">No minute forecast data available.</p>
-        {% endif %}
-    </div>
-</div>
-
-<!-- Radar Map -->
-<div class="card mx-auto my-4" style="max-width: 800px;">
-    <div class="card-body text-center">
-        <h5 class="card-title">Radar Map</h5>
-        {% if radar_map_url %}
-        <div class="ratio ratio-16x9">
-            <iframe src="{{ radar_map_url }}" allowfullscreen style="border:0;"></iframe>
-        </div>
-        {% else %}
-        <p>No radar map available.</p>
-        {% endif %}
-    </div>
-</div>
-{% endif %}
 
 <!-- AccuWeather Banner -->
 <div class="d-flex justify-content-center mt-5">
