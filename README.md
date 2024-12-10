@@ -25,6 +25,10 @@ To create the migration files for the database, run in your terminal:
 ```
 python manage.py makemigrations
 ```
+An API key from Accuweather is utilized in this project: please create a .env file in your root project directory and obtain an Accuweather API key.
+```
+https://developer.accuweather.com/
+```
 To apply the migrations to the database, run in your terminal:
 ```
 python manage.py migrate
