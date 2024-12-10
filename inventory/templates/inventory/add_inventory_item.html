@@ -1,87 +1,66 @@
 {% extends "base.html" %}
-
 {% load custom_filters %}
 
+{% block title %}Add Inventory Item{% endblock %}
+
 {% block content %}
-<div class="card shadow-sm p-4">
-  <h2 class="text-center mb-4">Add Inventory Item</h2>
-  <form method="post" class="row g-3">
+<div class="container mt-5">
+  <h2>Add Inventory Item</h2>
+
+  <form method="post" enctype="multipart/form-data" class="row g-3">
     {% csrf_token %}
 
     <div class="col-md-6">
-      <label for="{{ form.product_name.id_for_label }}" class="form-label">Product Name</label>
-      {{ form.product_name|addclass:"form-control" }}
-      {% if form.product_name.errors %}
-      <div class="text-danger">
-        {% for error in form.product_name.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
+        <label for="{{ form.product_name.id_for_label }}" class="form-label">Product Name</label>
+        {{ form.product_name|addclass:"form-control" }}
+        {% if form.product_name.errors %}
+        <div class="text-danger">
+            {% for error in form.product_name.errors %}
+            <small>{{ error }}</small>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
 
     <div class="col-md-6">
-      <label for="{{ form.serial_id.id_for_label }}" class="form-label">Serial ID</label>
-      {{ form.serial_id|addclass:"form-control" }}
-      {% if form.serial_id.errors %}
-      <div class="text-danger">
-        {% for error in form.serial_id.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
+        <label for="{{ form.product_image.id_for_label }}" class="form-label">Upload Picture</label>
+        {{ form.product_image|addclass:"form-control" }}
+        {% if form.product_image.errors %}
+        <div class="text-danger">
+            {% for error in form.product_image.errors %}
+            <small>{{ error }}</small>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
 
     <div class="col-md-6">
-      <label for="{{ form.cost.id_for_label }}" class="form-label">Cost</label>
-      {{ form.cost|addclass:"form-control" }}
-      {% if form.cost.errors %}
-      <div class="text-danger">
-        {% for error in form.cost.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
+        <label for="{{ form.serial_id.id_for_label }}" class="form-label">Serial ID</label>
+        {{ form.serial_id|addclass:"form-control" }}
     </div>
 
     <div class="col-md-6">
-      <label for="{{ form.quantity.id_for_label }}" class="form-label">Quantity</label>
-      {{ form.quantity|addclass:"form-control" }}
-      {% if form.quantity.errors %}
-      <div class="text-danger">
-        {% for error in form.quantity.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
+        <label for="{{ form.cost.id_for_label }}" class="form-label">Cost</label>
+        {{ form.cost|addclass:"form-control" }}
     </div>
 
     <div class="col-md-6">
-      <label for="{{ form.date_acquired.id_for_label }}" class="form-label">Date Acquired</label>
-      {{ form.date_acquired|addclass:"form-control" }}
-      {% if form.date_acquired.errors %}
-      <div class="text-danger">
-        {% for error in form.date_acquired.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
+        <label for="{{ form.quantity.id_for_label }}" class="form-label">Quantity</label>
+        {{ form.quantity|addclass:"form-control" }}
     </div>
 
-    <div class="col-12">
-      <label for="{{ form.notes.id_for_label }}" class="form-label">Notes</label>
-      {{ form.notes|addclass:"form-control" }}
-      {% if form.notes.errors %}
-      <div class="text-danger">
-        {% for error in form.notes.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
+    <div class="col-md-6">
+        <label for="{{ form.date_acquired.id_for_label }}" class="form-label">Date Acquired</label>
+        {{ form.date_acquired|addclass:"form-control" }}
     </div>
 
-    <div class="col-12">
-      <button type="submit" class="btn btn-success w-100">Save</button>
+    <div class="col-md-12">
+        <label for="{{ form.notes.id_for_label }}" class="form-label">Notes</label>
+        {{ form.notes|addclass:"form-control" }}
+    </div>
+
+    <div class="col-12 text-end">
+        <button type="submit" class="btn btn-success">Save</button>
     </div>
   </form>
 </div>

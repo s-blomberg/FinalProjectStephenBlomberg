@@ -129,3 +129,7 @@ ACCUWEATHER_API_KEY = config("ACCUWEATHER_API_KEY")
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Media file settings
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

@@ -1,66 +1,61 @@
 {% extends "base.html" %}
-
 {% load custom_filters %}
 
-{% block content %}
-<div class="card shadow-sm p-4">
-  <h2 class="text-center mb-4">Edit Inventory Item</h2>
-  <form method="post" class="row g-3">
-    {% csrf_token %}
-    <div class="col-md-6">
-      <label for="{{ form.product_name.id_for_label }}" class="form-label">Product Name</label>
-      {{ form.product_name|addclass:"form-control" }}
-    </div>
-    <div class="col-md-6">
-      <label for="{{ form.serial_id.id_for_label }}" class="form-label">Serial ID</label>
-      {{ form.serial_id|addclass:"form-control" }}
-    </div>
-    <div class="col-md-6">
-      <label for="{{ form.cost.id_for_label }}" class="form-label">Cost</label>
-      {{ form.cost|addclass:"form-control" }}
-    </div>
-    <div class="col-md-6">
-      <label for="{{ form.quantity.id_for_label }}" class="form-label">Quantity</label>
-      {{ form.quantity|addclass:"form-control" }}
-    </div>
-    <div class="col-md-6">
-      <label for="{{ form.date_acquired.id_for_label }}" class="form-label">Date Acquired</label>
-      {{ form.date_acquired|addclass:"form-control" }}
-    </div>
-    <div class="col-12">
-      <label for="{{ form.notes.id_for_label }}" class="form-label">Notes</label>
-      {{ form.notes|addclass:"form-control" }}
-    </div>
-    <div class="col-md-6">
-      <button type="submit" class="btn btn-primary w-100">Update</button>
-    </div>
-    <div class="col-md-6">
-      <button type="button" class="btn btn-danger w-100" data-bs-toggle="modal" data-bs-target="#deleteModal">
-        Delete
-      </button>
-    </div>
-  </form>
-</div>
+{% block title %}Edit Inventory Item{% endblock %}
 
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+{% block content %}
+<div class="container mt-5">
+  <h2>Edit Inventory Item</h2>
+
+  <form method="post" enctype="multipart/form-data" class="row g-3">
+      {% csrf_token %}
+
+      <div class="col-md-6">
+          <label for="{{ form.product_name.id_for_label }}" class="form-label">Product Name</label>
+          {{ form.product_name|addclass:"form-control" }}
       </div>
-      <div class="modal-body">
-        Are you sure you want to delete this inventory item? This action cannot be undone.
+
+      <div class="col-md-6">
+          <label for="{{ form.product_image.id_for_label }}" class="form-label">Product Image</label>
+
+          {% if object.product_image %}
+          <div class="mb-3">
+              <img src="{{ object.product_image.url }}" alt="{{ object.product_name }}" class="img-thumbnail mb-3">
+              <a href="{% url 'delete_image' object.id %}" class="btn btn-danger mb-2">Delete Image</a>
+          </div>
+          {% else %}
+          {{ form.product_image|addclass:"form-control" }}
+          {% endif %}
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <form method="post" action="{% url 'inventory_delete' object.id %}">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-danger">Delete</button>
-        </form>
+
+      <div class="col-md-6">
+          <label for="{{ form.serial_id.id_for_label }}" class="form-label">Serial ID</label>
+          {{ form.serial_id|addclass:"form-control" }}
       </div>
-    </div>
-  </div>
+
+      <div class="col-md-6">
+          <label for="{{ form.cost.id_for_label }}" class="form-label">Cost</label>
+          {{ form.cost|addclass:"form-control" }}
+      </div>
+
+      <div class="col-md-6">
+          <label for="{{ form.quantity.id_for_label }}" class="form-label">Quantity</label>
+          {{ form.quantity|addclass:"form-control" }}
+      </div>
+
+      <div class="col-md-6">
+          <label for="{{ form.date_acquired.id_for_label }}" class="form-label">Date Acquired</label>
+          {{ form.date_acquired|addclass:"form-control" }}
+      </div>
+
+      <div class="col-md-12">
+          <label for="{{ form.notes.id_for_label }}" class="form-label">Notes</label>
+          {{ form.notes|addclass:"form-control" }}
+      </div>
+
+      <div class="col-12 text-end">
+          <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+  </form>
 </div>
 {% endblock %}

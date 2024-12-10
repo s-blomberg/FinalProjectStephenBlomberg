@@ -8,7 +8,9 @@ class InventoryItemForm(forms.ModelForm):
         widgets = {
             'date_acquired': forms.DateInput(attrs={'type': 'date'}),
             'date_maintenance': forms.DateInput(attrs={'type': 'date'}),
+            'product_image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
+
     def clean_serial_id(self):
         serial_id = self.cleaned_data.get('serial_id')
         if InventoryItem.objects.filter(serial_id=serial_id).exists():
