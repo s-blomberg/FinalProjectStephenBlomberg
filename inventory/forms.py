@@ -13,6 +13,10 @@ class InventoryItemForm(forms.ModelForm):
 
     def clean_serial_id(self):
         serial_id = self.cleaned_data.get('serial_id')
-        if InventoryItem.objects.filter(serial_id=serial_id).exists():
+
+        # Check if serial_id is duplicate
+        existing_item = InventoryItem.objects.filter(serial_id=serial_id).exclude(pk=self.instance.pk).first()
+        if existing_item:
             raise forms.ValidationError("An inventory item with this Serial ID already exists.")
+
         return serial_id

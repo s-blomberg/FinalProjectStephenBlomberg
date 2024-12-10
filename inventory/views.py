@@ -3,15 +3,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
-from .models import InventoryItem
-from .forms import InventoryItemForm
+from .forms import InventoryItemForm, InventoryItem
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 # Home View
 def home(request):
-    return render(request, 'inventory/home.html')
+    return render(request, 'home.html')
 
 # View Inventory List
 class InventoryListView(ListView):
@@ -67,12 +66,16 @@ class InventoryUpdateView(PermissionRequiredMixin, UpdateView):
     success_url = reverse_lazy('inventory_list')
 
     def form_valid(self, form):
+        old_image = self.get_object().product_image
+
+        # Delete old image if a new one is uploaded
         if form.cleaned_data['product_image'] and old_image:
             old_image.delete(save=False)
 
         form.save()
         messages.success(self.request, "Inventory item updated successfully.")
         return super().form_valid(form)
+
 
 # Delete Inventory Item
 class InventoryDeleteView(DeleteView):

@@ -1,88 +1,16 @@
 {% extends "base.html" %}
 
-{% load custom_filters %}
-
 {% block content %}
 <div class="card shadow-sm p-4">
-  <h2 class="text-center mb-4">Add Maintenance Log</h2>
-  <form method="post" class="row g-3">
-    {% csrf_token %}
+    <h2 class="text-center mb-4">Add {{ form_type|title }} Maintenance Log</h2>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
 
-    <div class="col-md-6">
-      <label for="{{ form.last_maintenance_date.id_for_label }}" class="form-label">Last Maintenance Date</label>
-      {{ form.last_maintenance_date|addclass:"form-control" }}
-      {% if form.last_maintenance_date.errors %}
-      <div class="text-danger">
-        {% for error in form.last_maintenance_date.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-
-    <div class="col-md-6">
-      <label for="{{ form.light_bulb_hours.id_for_label }}" class="form-label">Light Bulb Hours</label>
-      {{ form.light_bulb_hours|addclass:"form-control" }}
-      {% if form.light_bulb_hours.errors %}
-      <div class="text-danger">
-        {% for error in form.light_bulb_hours.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-
-    <div class="col-md-6">
-      <label for="{{ form.serial_id.id_for_label }}" class="form-label">Serial ID</label>
-      {{ form.serial_id|addclass:"form-control" }}
-      {% if form.serial_id.errors %}
-      <div class="text-danger">
-        {% for error in form.serial_id.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-
-    <div class="col-md-6">
-      <label for="{{ form.product_model.id_for_label }}" class="form-label">Product Model</label>
-      {{ form.product_model|addclass:"form-control" }}
-      {% if form.product_model.errors %}
-      <div class="text-danger">
-        {% for error in form.product_model.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-
-    <div class="col-md-6">
-      <label for="{{ form.ballast_unit.id_for_label }}" class="form-label">Ballast Unit</label>
-      {{ form.ballast_unit|addclass:"form-control" }}
-      {% if form.ballast_unit.errors %}
-      <div class="text-danger">
-        {% for error in form.ballast_unit.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-
-    <div class="col-12">
-      <label for="{{ form.notes.id_for_label }}" class="form-label">Notes</label>
-      {{ form.notes|addclass:"form-control" }}
-      {% if form.notes.errors %}
-      <div class="text-danger">
-        {% for error in form.notes.errors %}
-        <small>{{ error }}</small>
-        {% endfor %}
-      </div>
-      {% endif %}
-    </div>
-
-    <div class="col-12">
-      <button type="submit" class="btn btn-success w-100">Save</button>
-    </div>
-  </form>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-success w-100">Save</button>
+            <a href="{% url 'inventory_detail' inventory_item.id %}#maintenance" class="btn btn-secondary w-100 mt-2">Cancel</a>
+        </div>
+    </form>
 </div>
 {% endblock %}

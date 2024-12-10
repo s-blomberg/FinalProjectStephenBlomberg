@@ -33,7 +33,7 @@
         <th>Product Name</th>
         <th>Last Maintenance Date</th>
         <th>Notes</th>
-        <th style="width: 160px;">Actions</th>
+        <th>Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -51,11 +51,6 @@
       <td>{{ item.notes|truncatechars:50 }}</td>
       <td class="text-center align-middle">
         <a href="{% url 'inventory_detail' item.id %}" class="btn btn-info btn-sm my-1">Details</a>
-        {% if item.maintenance_logs.exists %}
-        <a href="{% url 'maintenance_list' %}" class="btn btn-primary btn-sm my-1">View Log</a>
-        {% else %}
-        <a href="{% url 'add_maintenance_log_for_item' item.id %}" class="btn btn-primary btn-sm my-1">Add Log</a>
-        {% endif %}
       </td>
     </tr>
     {% empty %}
