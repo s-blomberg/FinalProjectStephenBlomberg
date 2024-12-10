@@ -29,13 +29,13 @@ To apply the migrations to the database, run in your terminal:
 ```
 python manage.py migrate
 ```
-To start the server, run in your terminal:
-```
-python manage.py runserver
-```
 To create an admin level account for login and admin panel access, run in your terminal:
 ```
 python manage.py createsuperuser
+```
+To start the server, run in your terminal:
+```
+python manage.py runserver
 ```
 
 After running the server, visit http://127.0.0.1:8000/ in your browser to launch the web-app.
