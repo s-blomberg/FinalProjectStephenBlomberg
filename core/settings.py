@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-z4*rq%(5qhxksr7zv4e1ei2@nxb2_m&#1jabe#_(lvj+yto-7a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://git.heroku.com/scar-inventory-app.git"]
+ALLOWED_HOSTS = ['scar-inventory-app-755f76f03b03.herokuapp.com']
 
 
 # Application definition
